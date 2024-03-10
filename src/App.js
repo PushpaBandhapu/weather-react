@@ -24,6 +24,17 @@ function App() {
   const [backgroundImageUrl, setBackgroundImageUrl] = useState('')
 
   useEffect(() => {
+    const fetchWeatherByCoords = (lat, lon) => {
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=d6d770dee8d3316ac1c8da3fb9d3b243`;
+      axios.get(url).then((response) => {
+        setData(response.data);
+        //console.log(response.data)
+        updateBackground(response.data.weather[0].main)
+      }).catch((error) => {
+        setError('Failed to fetch weather data for your location.');
+      });
+    }
+    
     navigator.geolocation.getCurrentPosition((position) => {
       fetchWeatherByCoords(position.coords.latitude, position.coords.longitude);
     }, (err) => {
@@ -31,16 +42,7 @@ function App() {
     });
   },[]);
 
-  const fetchWeatherByCoords = (lat, lon) => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=d6d770dee8d3316ac1c8da3fb9d3b243`;
-    axios.get(url).then((response) => {
-      setData(response.data);
-      //console.log(response.data)
-      updateBackground(response.data.weather[0].main)
-    }).catch((error) => {
-      setError('Failed to fetch weather data for your location.');
-    });
-  }
+  
   
 
   const searchLocation = (event) => {
