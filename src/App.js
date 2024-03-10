@@ -1,4 +1,4 @@
-import React,{useState, useEffect } from 'react'
+import React, {useState, useEffect } from 'react'
 import axios from 'axios'
 import Ash from './assets/ash.jpg';
 import Clear from './assets/clear.jpg';
@@ -29,7 +29,7 @@ function App() {
     }, (err) => {
       setError('Unable to fetch.Please enter location manually.');
     });
-  }, []);
+  });
 
   const fetchWeatherByCoords = (lat, lon) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=d6d770dee8d3316ac1c8da3fb9d3b243`;
@@ -52,7 +52,7 @@ function App() {
         setError('');
         updateBackground(response.data.weather[0].main)
       }).catch((error) => {
-        if(error.response && error.response.status == 400) {
+        if(error.response && error.response.status === 400) {
           setError("Please Enter the Valid city name");
         } else {
           setError("An error occured.Please try again");
