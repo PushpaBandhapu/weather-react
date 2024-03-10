@@ -29,7 +29,7 @@ function App() {
     }, (err) => {
       setError('Unable to fetch.Please enter location manually.');
     });
-  });
+  },[]);
 
   const fetchWeatherByCoords = (lat, lon) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=d6d770dee8d3316ac1c8da3fb9d3b243`;
